@@ -1,0 +1,29 @@
+[gd_scene format=1]
+
+[node name="GameOver" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 461.0
+margin/top = 312.0
+margin/right = 537.0
+margin/bottom = 326.0
+text = "GAME OVER"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

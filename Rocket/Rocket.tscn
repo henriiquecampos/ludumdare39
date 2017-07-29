@@ -1,0 +1,150 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://Rocket/rocket.gd" type="Script" id=1]
+[ext_resource path="res://Rocket/rocket.png" type="Texture" id=2]
+[ext_resource path="res://Rocket/thrust.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 19.2599, 42.7088 )
+
+[sub_resource type="ColorRamp" id=1]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 0.960938, 0.743225, 0, 1, 1, 0, 0, 1 )
+
+[node name="Rocket" type="RigidBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0.735077, -43.4729 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 5.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 1
+contact_monitor = true
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+tapping_speed = Vector2( 0, -200 )
+min_time = 0.1
+max_time = 3.0
+tapping_path = NodePath("TappingTimer")
+reaction_path = NodePath("ReactionTime")
+camera_path = null
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 0.735077, -43.4729 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Visibility" type="VisibilityNotifier2D" parent="."]
+
+transform/pos = Vector2( 0.882615, 11.3098 )
+transform/scale = Vector2( 0.35606, 0.33596 )
+rect = Rect2( -64, -288, 128, 256 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+offset = Vector2( 0.134277, -163.965 )
+
+[node name="Thrust" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( 0.469712, 51.7076 )
+texture = ExtResource( 3 )
+
+[node name="TappingTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="ReactionTime" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="CameraRig" type="RemoteTransform2D" parent="."]
+
+remote_path = NodePath("")
+
+[node name="Particles" type="Particles2D" parent="."]
+
+visibility/visible = false
+transform/pos = Vector2( 0, -8.66444 )
+config/amount = 32
+config/lifetime = 2.2
+config/process_mode = 1
+params/direction = 0.0
+params/spread = 136.98
+params/linear_velocity = 30.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 80.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 30.0
+params/final_size = 15.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 1 )
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI"]
+
+rect/rotation = 90.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 16.0
+margin/top = 552.0
+margin/right = 449.0
+margin/bottom = 568.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 100.0
+range/exp_edit = false
+range/rounded = false
+percent/visible = false
+
+[connection signal="body_enter" from="." to="." method="_on_body_enter"]
+
+[connection signal="exit_screen" from="Visibility" to="." method="_on_exit_screen"]
+
+[connection signal="timeout" from="TappingTimer" to="." method="_on_tapping_timeout"]
+
+[connection signal="timeout" from="ReactionTime" to="." method="_on_reaction_timeout"]
+
+
