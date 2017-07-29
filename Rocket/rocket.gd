@@ -12,7 +12,7 @@ export (NodePath) var camera_path
 onready var tapping = get_node(tapping_path)
 onready var reaction = get_node(reaction_path)
 onready var camera = get_node(camera_path)
-
+onready var sprite = get_node("Sprite")
 
 var needed_tappings = 1
 var tappings = 0
@@ -42,13 +42,16 @@ func _fixed_process(delta):
 			else:
 				tappings += 1
 	else:
-		if Input.is_action_pressed("tapping"):
+		if Input.is_action_pressed("tapping") and already_pressed:
+			sprite.get_node("Thrust").set_hidden(false)
 			set_linear_velocity(velocity)
-			get_node("Particles").set_emitting(true)
+			get_node("Particles").set_emitting(false)
 	already_pressed = Input.is_action_pressed("tapping")
 
 func _on_tapping_timeout():
-	randomize_ignition()
+	#Engine failing
+	flick_thrust()
+	_randomize_ignition()
 	get_node("Particles").set_emitting(false)
 	velocity = Vector2(0, 0)
 	can_tap = true
@@ -59,9 +62,6 @@ func _on_tapping_timeout():
 
 func _on_reaction_timeout():
 	bonus_velocity = false
-
-func _randomize_time():
-	return(rand_range(min_time, max_time))
 
 func _on_exit_screen():
 	get_tree().change_scene("res://Screens/GameOver.tscn")
@@ -77,5 +77,21 @@ func _on_body_enter( body ):
 		get_node("Visibility").disconnect("exit_screen", self, "_on_exit_screen")
 		get_tree().change_scene("res://Screens/MainMenu.tscn")
 
-func randomize_ignition():
+func _randomize_time():
+	return(rand_range(min_time, max_time))
+
+func _randomize_ignition():
 	needed_tappings = int(rand_range(5,11))
+	
+func flick_thrust():
+	get_node("Particles").set_emitting(true)
+	sprite.get_node("ThrustFailing").set_wait_time(rand_range(0.1,0.3))
+	sprite.get_node("ThrustFailing").start()
+	if can_tap:
+		sprite.get_node("ThrustFailing").set_one_shot(true)
+		if sprite.get_node("Thrust").is_hidden():
+			sprite.get_node("Thrust").set_hidden(false)
+		else:
+			sprite.get_node("Thrust").set_hidden(true)
+	else:
+		sprite.get_node("ThrustFailing").set_one_shot(false)

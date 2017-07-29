@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://Rocket/Rocket.tscn" type="PackedScene" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Rocket/Rocket.tscn" type="PackedScene" id=2]
 
 [sub_resource type="LineShape2D" id=1]
 
@@ -11,8 +11,8 @@ d = 0.0
 
 [node name="Level_0-0" type="Polygon2D"]
 
-transform/pos = Vector2( 2.05054, 2.05078 )
-polygon = Vector2Array( 0, -1, 348, -1, 350.371, -3139.26, 1.77826, -3139.26 )
+transform/pos = Vector2( 3.55786, 1014.23 )
+polygon = Vector2Array( -2.96399, 14.2097, 599.003, 14.2097, 587.43, -3139.31, 1.77826, -3139.26 )
 uv = Vector2Array(  )
 color = Color( 1, 1, 1, 1 )
 vertex_colors = ColorArray( 0.511719, 0.633789, 1, 1, 0.509804, 0.631373, 1, 1, 0.00610352, 0.0534058, 0.195313, 1, 0.00392157, 0.0509804, 0.192157, 1 )
@@ -24,43 +24,14 @@ texture/rotation = 0.0
 invert/enable = false
 invert/border = 100.0
 
-[node name="Rocket" parent="." instance=ExtResource( 1 )]
-
-transform/pos = Vector2( 171.837, -155.9 )
-camera_path = NodePath("../Camera")
-
-[node name="CameraRig" parent="Rocket"]
-
-remote_path = NodePath("../../Camera")
-
-[node name="Camera" type="Camera2D" parent="."]
-
-transform/pos = Vector2( 171.837, -155.9 )
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 1, 1 )
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-drag_margin/h_enabled = true
-drag_margin/v_enabled = true
-smoothing/enable = true
-smoothing/speed = 5.0
-drag_margin/left = 0.5
-drag_margin/top = 0.5
-drag_margin/right = 0.5
-drag_margin/bottom = 0.5
-
 [node name="Station" type="StaticBody2D" parent="." groups=[
 "arrival",
 ]]
 
-transform/pos = Vector2( 166.685, -3137.93 )
+transform/pos = Vector2( 292.525, -3137.93 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( -1, 8.74228e-08, -8.74228e-08, -1, 0, 0 )
+shapes/0/transform = Matrix32( -1, 8.74228e-08, -8.74228e-08, -1, 0, 82.2584 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -71,15 +42,71 @@ bounce = 0.0
 
 [node name="Sprite" type="Sprite" parent="Station"]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 modulate = Color( 0.583984, 1, 0.167969, 1 )
 
 [node name="Shape" type="CollisionShape2D" parent="Station"]
 
+transform/pos = Vector2( 0, 82.2584 )
 transform/rot = 180.0
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+transform/pos = Vector2( 292.525, -459.746 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Ground"]
+
+texture = ExtResource( 1 )
+modulate = Color( 0.583984, 1, 0.167969, 1 )
+
+[node name="Shape" type="CollisionShape2D" parent="Ground"]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Rocket" parent="." instance=ExtResource( 2 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 295.06, -495.178 )
+camera_path = NodePath("../Camera")
+
+[node name="CameraRig" parent="Rocket"]
+
+remote_path = NodePath("../../Camera")
+
+[node name="Camera" type="Camera2D" parent="."]
+
+transform/pos = Vector2( 295.06, -495.178 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -1000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = true
+smoothing/speed = 5.0
+drag_margin/left = 0.5
+drag_margin/top = 0.5
+drag_margin/right = 0.5
+drag_margin/bottom = 0.5
 
 
 [editable path="Rocket"]
