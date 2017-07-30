@@ -1,14 +1,18 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://Rocket/rocket.gd" type="Script" id=1]
 [ext_resource path="res://Rocket/rocket.tex" type="Texture" id=2]
 [ext_resource path="res://Rocket/thrust.tex" type="Texture" id=3]
 [ext_resource path="res://Rocket/gui.gd" type="Script" id=4]
+[ext_resource path="res://Rocket/powerbar_power.tex" type="Texture" id=5]
+[ext_resource path="res://Rocket/powerbar_empty.tex" type="Texture" id=6]
+[ext_resource path="res://Rocket/powerbar_full.tex" type="Texture" id=7]
+[ext_resource path="res://Rocket/soundeffects.tres" type="SampleLibrary" id=8]
 
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 19.2599, 51.5819 )
+extents = Vector2( 129.692, 136.25 )
 
 [sub_resource type="ColorRamp" id=1]
 
@@ -19,7 +23,7 @@ colors = ColorArray( 0.464844, 0.464844, 0.464844, 1, 0.796875, 0.796875, 0.7968
 
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0.735077, -52.7387 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -39,36 +43,31 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 1 )
-tapping_speed = Vector2( 0, -200 )
-min_time = 0.1
+ENGINE_STATE = 0
+min_time = 1.0
 max_time = 3.0
-tapping_path = NodePath("TappingTimer")
-reaction_path = NodePath("ReactionTime")
 camera_path = null
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 0.735077, -52.7387 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
 [node name="Visibility" type="VisibilityNotifier2D" parent="."]
 
-transform/pos = Vector2( 0.882615, 11.3098 )
-transform/scale = Vector2( 0.35606, 0.33596 )
-rect = Rect2( -64, -288, 128, 256 )
+transform/pos = Vector2( -64.0001, -157 )
+rect = Rect2( 0, 0, 128, 256 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
-transform/scale = Vector2( 0.3, 0.3 )
+transform/scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
-offset = Vector2( 0.134277, -163.965 )
 
 [node name="Thrust" type="Sprite" parent="Sprite"]
 
 visibility/visible = false
-transform/pos = Vector2( 0.469712, 51.7076 )
+transform/pos = Vector2( 0.469712, 214.375 )
 texture = ExtResource( 3 )
 
 [node name="ThrustFailing" type="Timer" parent="Sprite"]
@@ -81,16 +80,9 @@ autostart = false
 [node name="TappingTimer" type="Timer" parent="."]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 2.0
 one_shot = true
-autostart = false
-
-[node name="ReactionTime" type="Timer" parent="."]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = true
-autostart = false
+autostart = true
 
 [node name="CameraRig" type="RemoteTransform2D" parent="."]
 
@@ -98,15 +90,16 @@ remote_path = NodePath("")
 
 [node name="Particles" type="Particles2D" parent="."]
 
-transform/pos = Vector2( 0, 1.57674 )
+transform/pos = Vector2( 0, 138.219 )
 config/amount = 32
-config/lifetime = 1.0
+config/lifetime = 0.7
+config/time_scale = 0.7
 config/emitting = false
 config/process_mode = 1
-config/explosiveness = 0.6
+config/explosiveness = 0.46
 params/direction = 0.0
-params/spread = 151.82
-params/linear_velocity = 12.0
+params/spread = 90.0
+params/linear_velocity = 50.0
 params/spin_velocity = 0.0
 params/orbit_velocity = 0.0
 params/gravity_direction = 0.0
@@ -115,8 +108,8 @@ params/radial_accel = 0.0
 params/tangential_accel = 0.0
 params/damping = 0.0
 params/initial_angle = 0.0
-params/initial_size = 5.0
-params/final_size = 2.0
+params/initial_size = 25.0
+params/final_size = 15.0
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
@@ -129,31 +122,75 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 script/script = ExtResource( 4 )
+power_path = NodePath("MarginContainer/VBoxContainer/Power")
 
-[node name="ProgressBar" type="ProgressBar" parent="GUI"]
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
 
-rect/rotation = 90.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 605.0
+margin/bottom = 1033.0
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/MarginContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 20.0
+margin/right = 605.0
+margin/bottom = 1033.0
+custom_constants/separation = 20
+alignment = 0
+
+[node name="Text" type="TextureFrame" parent="GUI/MarginContainer/VBoxContainer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 585.0
+margin/bottom = 193.0
+texture = ExtResource( 5 )
+stretch_mode = 0
+
+[node name="Power" type="TextureProgress" parent="GUI/MarginContainer/VBoxContainer"]
+
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 16.0
-margin/top = 552.0
-margin/right = 449.0
-margin/bottom = 568.0
+margin/left = 0.0
+margin/top = 213.0
+margin/right = 585.0
+margin/bottom = 607.0
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
 range/page = 0.0
-range/value = 100.0
+range/value = 0.0
 range/exp_edit = false
 range/rounded = false
-percent/visible = false
+texture/under = ExtResource( 6 )
+texture/over = null
+texture/progress = ExtResource( 7 )
+mode = 3
+radial_fill/fill_degrees = 360.0
+radial_fill/center_offset = Vector2( 0, 0 )
 
 [node name="SFX" type="SamplePlayer" parent="."]
 
 config/polyphony = 1
-config/samples = null
+config/samples = ExtResource( 8 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0
 default/pan = 0.0
@@ -167,14 +204,6 @@ default/reverb_room = 2
 default/reverb_send = 0.0
 default/chorus_send = 0.0
 
-[connection signal="body_enter" from="." to="." method="_on_body_enter"]
-
-[connection signal="exit_screen" from="Visibility" to="." method="_on_exit_screen"]
-
-[connection signal="timeout" from="Sprite/ThrustFailing" to="." method="flick_thrust"]
-
-[connection signal="timeout" from="TappingTimer" to="." method="_on_tapping_timeout"]
-
-[connection signal="timeout" from="ReactionTime" to="." method="_on_reaction_timeout"]
+[connection signal="timeout" from="Sprite/ThrustFailing" to="." method="_on_thrust_fail"]
 
 
