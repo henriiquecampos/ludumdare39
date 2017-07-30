@@ -23,11 +23,13 @@ func set_engine_state(state):
 	if is_inside_tree():
 		if state == 0:
 			sprite.get_node("ThrustFailing").stop()
+			sprite.get_node("Thrust").show()
 			get_node("Particles").set_emitting(false)
 		elif state == 1:
 			flicking_thrust()
 			get_node("Particles").set_emitting(true)
 		elif state == 2:
+			get_node("SFX").play("falha")
 			sprite.get_node("Thrust").set_hidden(true)
 			sprite.get_node("ThrustFailing").stop()
 			get_node("Particles").set_emitting(true)
@@ -53,13 +55,14 @@ func manage_inputs():
 				sprite.get_node("Thrust").set_hidden(false)
 				set_linear_velocity(get_linear_velocity() + Vector2(0, -100))
 		elif not Input.is_action_pressed("tapping") and already_pressed:
-			sprite.get_node("Thrust").set_hidden(true)
+			get_node("CameraRig").set_remote_node(".")
 			set_engine_state(2)
 			tapping.stop()
 			tapped = 0
 	elif ENGINE_STATE == 1:
 		if tapping.get_time_left() < tapping.get_wait_time() * 0.25:
 			set_engine_state(2)
+			randomize_tappings()
 			get_node("CameraRig").set_remote_node(".")
 			sprite.get_node("ThrustFailing").stop()
 		if Input.is_action_pressed("tapping") and not already_pressed:
@@ -80,3 +83,5 @@ func restart_tapping():
 	tapping.set_wait_time(rand_range(min_time, max_time))
 	tapping.start()
 
+func randomize_tappings():
+	needed_tappings = int(rand_range(1, 11))

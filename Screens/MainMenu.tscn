@@ -11,7 +11,7 @@
 [ext_resource path="res://title_button_hover.tex" type="Texture" id=9]
 [ext_resource path="res://title_bg.tex" type="Texture" id=10]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 
 script/source = "extends Control
 
@@ -19,7 +19,7 @@ func _change_scene(to):
 	get_tree().change_scene(to)
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 
 script/source = "extends ParallaxLayer
 
@@ -43,7 +43,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 40.0
-script/script = SubResource( 2 )
+script/script = SubResource( 1 )
 
 [node name="Parallax" type="ParallaxBackground" parent="."]
 
@@ -63,7 +63,7 @@ scroll/ignore_camera_zoom = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 600, 0 )
-script/script = SubResource( 3 )
+script/script = SubResource( 2 )
 
 [node name="cloud01" type="Sprite" parent="Parallax/Clouds"]
 
@@ -104,9 +104,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 0.0
+margin/top = -109.0
 margin/right = 600.0
-margin/bottom = 1024.0
+margin/bottom = 915.0
 texture = ExtResource( 6 )
 stretch_mode = 4
 
@@ -117,9 +117,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 173.0
-margin/top = 763.0
+margin/top = 654.0
 margin/right = 436.0
-margin/bottom = 855.0
+margin/bottom = 746.0
 toggle_mode = false
 click_on_press = true
 enabled_focus_mode = 2

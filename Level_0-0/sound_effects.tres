@@ -1,0 +1,20 @@
+[gd_resource type="SampleLibrary" load_steps=3 format=1]
+
+[ext_resource path="res://Level_0-0/tu_tu_tuuuuuuuuuuuuuu.wav" type="Sample" id=1]
+[ext_resource path="res://Rocket/launchF.wav" type="Sample" id=2]
+
+[resource]
+
+samples/init = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 1 )
+}
+samples/launch = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 2 )
+}
+

@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://SkinSelection/skin_selection.gd" type="Script" id=1]
+[ext_resource path="res://SkinSelection/arrow_l.tex" type="Texture" id=2]
+[ext_resource path="res://SkinSelection/arrow_r.tex" type="Texture" id=3]
+
+[node name="SkinSelection" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 86.0
+margin/bottom = 101.0
+script/script = ExtResource( 1 )
+first = null
+second = null
+third = null
+
+[node name="Previous" type="TextureButton" parent="."]
+
+focus_neighbour/right = NodePath("../Next")
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 8.0
+margin/top = 512.0
+margin/right = 86.0
+margin/bottom = 613.0
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 2 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="Next" type="TextureButton" parent="."]
+
+focus_neighbour/left = NodePath("../Previous")
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 516.0
+margin/top = 512.0
+margin/right = 594.0
+margin/bottom = 613.0
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 3 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[connection signal="released" from="Previous" to="." method="_on_Previous_released"]
+
+[connection signal="released" from="Next" to="." method="_on_Next_released"]
+
+
