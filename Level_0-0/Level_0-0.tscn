@@ -21,7 +21,7 @@ transform/pos = Vector2( 3.55786, 1014.23 )
 polygon = Vector2Array( -424.212, 340.536, 1357.87, 323.834, 1373.8, -8457.79, -406.189, -8457.79 )
 uv = Vector2Array(  )
 color = Color( 1, 1, 1, 1 )
-vertex_colors = ColorArray( 0.511719, 0.633789, 1, 1, 0.509804, 0.631373, 1, 1, 0.00610352, 0.0534058, 0.195313, 1, 0.00392157, 0.0509804, 0.192157, 1 )
+vertex_colors = ColorArray( 0.511719, 0.805451, 1, 1, 0.509804, 0.803922, 1, 1, 0.00610352, 0.0534058, 0.195313, 1, 0.00392157, 0.0509804, 0.192157, 1 )
 offset = Vector2( 0, 0 )
 texture/texture = null
 texture/offset = Vector2( 0, 0 )
@@ -58,8 +58,6 @@ _update_shape_index = 0
 [node name="Rocket" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 297.002, -286.349 )
-min_time = 0.8
-max_time = 3.5
 camera_path = NodePath("../Camera")
 
 [node name="CameraRig" parent="Rocket"]

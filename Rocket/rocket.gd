@@ -48,15 +48,15 @@ func manage_inputs():
 	if ENGINE_STATE == 0:
 		if tapping.get_time_left() < tapping.get_wait_time() * 0.5:
 			set_engine_state(1)
-			flicking_thrust()
 		if Input.is_action_pressed("tapping") and already_pressed:
 			if abs(get_linear_velocity().y) < 400:
 				sprite.get_node("Thrust").set_hidden(false)
 				set_linear_velocity(get_linear_velocity() + Vector2(0, -100))
 		elif not Input.is_action_pressed("tapping") and already_pressed:
 			sprite.get_node("Thrust").set_hidden(true)
-				set_engine_state(2)
-				tapping.stop()
+			set_engine_state(2)
+			tapping.stop()
+			tapped = 0
 	elif ENGINE_STATE == 1:
 		if tapping.get_time_left() < tapping.get_wait_time() * 0.25:
 			set_engine_state(2)
@@ -74,7 +74,7 @@ func manage_inputs():
 				restart_tapping()
 				set_linear_velocity(Vector2(0, 0))
 				get_node("CameraRig").set_remote_node("../%s" %camera_path)
-				get_node("InputDelay").start()
+				tapped = 0
 				
 func restart_tapping():
 	tapping.set_wait_time(rand_range(min_time, max_time))
