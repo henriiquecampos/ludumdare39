@@ -1,11 +1,24 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://SkinSelection/skin_selection.gd" type="Script" id=1]
-[ext_resource path="res://SkinSelection/arrow_l.tex" type="Texture" id=2]
-[ext_resource path="res://SkinSelection/arrow_r.tex" type="Texture" id=3]
+[ext_resource path="res://Rocket/rocket.tex" type="Texture" id=2]
+[ext_resource path="res://SkinSelection/rocket002.tex" type="Texture" id=3]
+[ext_resource path="res://SkinSelection/rocket003.tex" type="Texture" id=4]
+[ext_resource path="res://SkinSelection/rocket004.tex" type="Texture" id=5]
+[ext_resource path="res://Rocket/thrust.tex" type="Texture" id=6]
+[ext_resource path="res://SkinSelection/rocket002_f.tex" type="Texture" id=7]
+[ext_resource path="res://SkinSelection/rocket003_f.tex" type="Texture" id=8]
+[ext_resource path="res://SkinSelection/rocket004_f.tex" type="Texture" id=9]
+[ext_resource path="res://SkinSelection/arrow_l.tex" type="Texture" id=10]
+[ext_resource path="res://SkinSelection/arrow_l_pressed.tex" type="Texture" id=11]
+[ext_resource path="res://SkinSelection/arrow_l_hover.tex" type="Texture" id=12]
+[ext_resource path="res://SkinSelection/arrow_r.tex" type="Texture" id=13]
+[ext_resource path="res://SkinSelection/arrow_r_pressed.tex" type="Texture" id=14]
+[ext_resource path="res://SkinSelection/arrow_r_hover.tex" type="Texture" id=15]
 
 [node name="SkinSelection" type="Control"]
 
+process/pause_mode = 2
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -15,9 +28,14 @@ margin/top = 0.0
 margin/right = 86.0
 margin/bottom = 101.0
 script/script = ExtResource( 1 )
-first = null
-second = null
-third = null
+first = ExtResource( 2 )
+second = ExtResource( 3 )
+third = ExtResource( 4 )
+forth = ExtResource( 5 )
+tfirst = ExtResource( 6 )
+tsecond = ExtResource( 7 )
+tthird = ExtResource( 8 )
+tforth = ExtResource( 9 )
 
 [node name="Previous" type="TextureButton" parent="."]
 
@@ -34,7 +52,9 @@ toggle_mode = false
 click_on_press = true
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 2 )
+textures/normal = ExtResource( 10 )
+textures/pressed = ExtResource( 11 )
+textures/hover = ExtResource( 12 )
 params/resize_mode = 0
 params/stretch_mode = 0
 
@@ -53,7 +73,9 @@ toggle_mode = false
 click_on_press = true
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 3 )
+textures/normal = ExtResource( 13 )
+textures/pressed = ExtResource( 14 )
+textures/hover = ExtResource( 15 )
 params/resize_mode = 0
 params/stretch_mode = 0
 

@@ -60,6 +60,7 @@ scroll/ignore_camera_zoom = true
 
 [node name="Clouds" type="ParallaxLayer" parent="Parallax"]
 
+editor/display_folded = true
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 600, 0 )
@@ -149,6 +150,17 @@ margin/right = 600.0
 margin/bottom = 1024.0
 texture = ExtResource( 10 )
 stretch_mode = 6
+
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = null
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
 
 [connection signal="released" from="Interface/PlayButton" to="." method="_change_scene" binds= [ "res://Level_0-0/Level_0-0.tscn" ]]
 

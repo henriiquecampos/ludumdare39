@@ -27,7 +27,7 @@ func set_engine_state(state):
 			get_node("Particles").set_emitting(false)
 		elif state == 1:
 			flicking_thrust()
-			get_node("Particles").set_emitting(true)
+			get_node("Particles").set_emitting(false)
 		elif state == 2:
 			get_node("SFX").play("falha")
 			sprite.get_node("Thrust").set_hidden(true)

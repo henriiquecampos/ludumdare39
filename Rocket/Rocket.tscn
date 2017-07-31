@@ -61,6 +61,7 @@ rect = Rect2( 0, 0, 128, 256 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
+process/pause_mode = 2
 transform/scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 
@@ -68,6 +69,7 @@ texture = ExtResource( 2 )
 
 visibility/visible = false
 transform/pos = Vector2( 0.469712, 214.375 )
+z/relative = false
 texture = ExtResource( 3 )
 
 [node name="ThrustFailing" type="Timer" parent="Sprite"]
@@ -191,7 +193,7 @@ radial_fill/center_offset = Vector2( 0, 0 )
 
 config/polyphony = 1
 config/samples = ExtResource( 8 )
-default/volume_db = 0.0
+default/volume_db = -8.0
 default/pitch_scale = 1.0
 default/pan = 0.0
 default/depth = 0.0
